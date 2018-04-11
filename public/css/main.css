@@ -1,0 +1,86 @@
+body {
+    background: #fff;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+button:focus,input:focus {
+    outline: none;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.box-wrap {
+    width: 320px;
+    border: solid 1px #ccc;
+}
+
+.box-wrap h3 {
+    font-size: 16px;
+    border-bottom: solid 1px #ccc;
+    margin: 0;
+}
+
+.box-wrap h3 > span {
+    display: inline-block;
+    margin: 0 10px;
+    line-height: 44px;
+    border-bottom: solid 2px orange;
+}
+
+.box-wrap .form-wrap {
+    padding: 10px;
+}
+
+.form-wrap p {
+    font-size: 12px;
+    padding: 5px 0;
+}
+
+.item-wrap {
+    display: flex;
+    margin: 0 0 10px 0;
+    align-items: center;
+}
+
+.item-wrap label {
+    width: 70px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.box-wrap input {
+    flex: 1 auto;
+    border-radius: 5px;
+    padding: 4px 10px;
+    border: solid 1px #ccc;
+    line-height: 24px;
+    box-sizing: border-box;
+}
+
+.submit {
+    display: inline-block;
+    text-align: center;
+    line-height: 32px;
+    border: none;
+    background: orange;
+    color: #fff;
+    cursor: pointer;
+    width: 220px;
+    margin: 0 0 0 80px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.form-wrap .warning {
+    font-size: 12px;
+    color: orange;
+    text-align: center;
+}
