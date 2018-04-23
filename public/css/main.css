@@ -7,6 +7,10 @@ p {
     margin: 0;
 }
 
+.nav {
+    margin-bottom: 20px;
+}
+
 button:focus,input:focus {
     outline: none;
 }
@@ -16,7 +20,6 @@ button:focus,input:focus {
 }
 
 .box-wrap {
-    width: 320px;
     border: solid 1px #ccc;
 }
 
@@ -72,8 +75,8 @@ button:focus,input:focus {
     background: orange;
     color: #fff;
     cursor: pointer;
-    width: 220px;
-    margin: 0 0 0 80px;
+    width: calc(100% - 70px);
+    margin: 0 0 0 70px;
     border-radius: 5px;
     text-decoration: none;
     font-size: 14px;

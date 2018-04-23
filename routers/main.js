@@ -4,10 +4,14 @@
 
 var express = require('express');
 var router = express.Router();
+var Category = require('../models/Categories');
 
 router.get('/', function(req, res, next) {
-    res.render('main/index', {
-        userInfo: req.userInfo
+    Category.find().sort({_id: -1}).then(categories => {
+        res.render('main/index', {
+            userInfo: req.userInfo,
+            categories: categories,
+        });
     });
 });
 

@@ -49,7 +49,8 @@ app.use('/admin', require('./routers/admin'));
 app.use('/api', require('./routers/api'));
 app.use('/', require('./routers/main'));
 
-mongoose.connect('mongodb://localhost:27018/blog', function(err) {
+// 命令行启动mongodb: mongod -dbpath D:\my\blog\db --port 27138
+mongoose.connect('mongodb://localhost:27138/blog', function(err) {
     "use strict";
     if (err) {
         console.log('连接数据库失败');
