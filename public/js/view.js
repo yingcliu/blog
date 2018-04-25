@@ -7,11 +7,11 @@ var comments = [];
 
 function renderCommentList() {
     var list = comments;
+    var $pager = $('#pager');
+    var pages = Math.ceil(list.length / prepage);
     $('#commentNum').html(list.length);
     var html = '';
     if (list.length) {
-        var pages = Math.ceil(list.length / prepage);
-        var $pager = $('#pager');
         $pager.find('li').eq(1).html(page + '/' + pages);
         if (page <= 1) {
             page = 1;
@@ -31,6 +31,9 @@ function renderCommentList() {
             html += '<li><h5>'+ list[i].username +'<span>'+ formatDate(list[i].postTime) +'</span></h5><p>'+ list[i].content +'</p></li>'
         }
     } else {
+        $pager.find('li').eq(1).html('');
+        $pager.find('li').eq(0).html('<span>没有上一页了</span>');
+        $pager.find('li').eq(2).html('<span>没有下一页了</span>');
         html = '<li class="text-center">暂无评论</li>'
     }
     $('#commentList').html(html);
