@@ -5,6 +5,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
+var Content = require('../models/Contents');
 
 var responseData;
 
@@ -94,6 +95,37 @@ router.post('/user/login', function(req, res, next) {
 router.get('/user/logout', function(req, res, next) {
     req.cookies.set('userInfo', null);
     res.json(responseData);
+});
+
+router.get('/comment', function(req, res) {
+    var contentId = req.query.contentId || '';
+    Content.findOne({
+        _id: contentId
+    }).then(function(content) {
+        responseData.message = '获取成功';
+        responseData.data = content.comments;
+        res.json(responseData);
+    });
+});
+
+router.post('/comment/post', function(req, res, next) {
+    var contentId = req.body.contentId || '';
+    var content = req.body.content || '';
+    var postData = {
+        username: req.userInfo.username,
+        postTime: new Date(),
+        content: content
+    };
+    Content.findOne({
+        _id: contentId
+    }).then(function(content) {
+        content.comments.push(postData);
+        return content.save();
+    }).then(function(newContent) {
+        responseData.message = '评论发布成功';
+        responseData.data = newContent;
+        res.json(responseData);
+    })
 });
 
 module.exports = router;

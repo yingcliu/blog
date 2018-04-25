@@ -1,0 +1,43 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3 class="panel-title">{{content.title}}</h3>
+        <p>
+            作者：{{content.user.username}}
+            时间：{{content.addTime|date('Y年m月d日 H:i:s', -8*60)}}
+            阅读：{{content.views}}
+            评论：{{content.comments.length}}
+        </p>
+        <div class="content-desc">{{content.content}}</div>
+    </div>
+</div>
+<div class="panel panel-default comment">
+    <div class="panel-heading">
+        <h4 class="panel-title">评论 <em>一共有<span id="commentNum"></span>条评论</em></h4>
+    </div>
+    <div class="panel-body">
+        {%if userInfo%}
+        <strong>{{userInfo.username}}</strong>
+        <textarea class="form-control" id="commentContent" placeholder="请输入评论" rows="5"></textarea>
+        <input type="hidden" id="contentId" value="{{content.id}}">
+        <div class="text-center">
+            <button type="button" class="btn btn-success" id="commentBtn">提交评论</button>
+        </div>
+        {%else%}
+        <p class="text-center warning">您还未登录，请先登录</p>
+        {%endif%}
+        <ul class="comment-list list-unstyled" id="commentList">
+        </ul>
+        <nav aria-label="...">
+            <ul class="pager" id="pager">
+                <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                <li id="pagenation"></li>
+                <li class="next"><a href="#">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<script src="/public/js/view.js"></script>
+{%endblock%}

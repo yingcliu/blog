@@ -232,14 +232,14 @@ router.get('/content', function(req, res) {
         var skip = (page - 1) * limit;
 
         // sort 1:升序   -1:降序
-        Content.find().sort({_id: -1}).limit(limit).skip(skip).populate('category').then(function(contents) {
+        Content.find().sort({_id: -1}).limit(limit).skip(skip).populate(['category', 'user']).then(function(contents) {
             res.render('admin/content_index', {
                 userInfo: req.userInfo,
                 contents: contents,
                 page: page,
                 count: count,
                 pages: pages,
-                limit: limit,
+                limit: limit
             });
         });
     });
@@ -291,8 +291,9 @@ router.post('/content/add', function(req, res) {
     new Content({
         category: category,
         title: title,
+        user: req.userInfo._id.toString(),
         desc: desc,
-        content: content,
+        content: content
     }).save().then(function(content) {
         res.render('admin/success', {
             userInfo: req.userInfo,
@@ -328,6 +329,7 @@ router.get('/content/edit', function(req, res) {
 });
 
 router.post('/content/edit', function(req, res) {
+    var id = req.query.id || '';
     var category = req.body.category;
     var title = req.body.title;
     var desc = req.body.desc;
@@ -361,18 +363,36 @@ router.post('/content/edit', function(req, res) {
         });
         return;
     }
-    new Content({
-        category: category,
+
+    Content.update({
+        _id: id
+    }, {
+        category: req.body.category,
         title: title,
         desc: desc,
-        content: content,
-    }).save().then(function(content) {
+        content: content
+    }).then(function(rs) {
+        res.render('admin/success', {
+            userInfo: req.useInfo,
+            message: '内容修改成功',
+            url: '/admin/content/edit?id=' + id
+        })
+    })
+});
+
+router.get('/content/delete', function(req, res) {
+    var id = req.query.id || '';
+
+    Content.remove({
+        _id: id
+    }).then(function() {
         res.render('admin/success', {
             userInfo: req.userInfo,
-            message: '内容保存成功',
+            message: '内容删除成功',
             url: '/admin/content'
         })
-    });
+    })
+
 });
 
 module.exports = router;

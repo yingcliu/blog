@@ -12,10 +12,26 @@ module.exports = new mongoose.Schema({
     title: String,
     desc: {
         type: String,
-        default: '',
+        default: ''
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    addTime: {
+        type: Date,
+        default: new Date()
+    },
+    views: {
+        type: Number,
+        default: 0
     },
     content: {
         type: String,
-        default: '',
+        default: ''
+    },
+    comments: {
+        type: Array,
+        default: []
     }
 });
